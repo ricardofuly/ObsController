@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Horizontal (uso principal): deck 5×3 (2 linhas de cenas + teclas de função), faixas de áudio abaixo. -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="16dp"
+            android:paddingEnd="4dp">
+
+            <View android:id="@+id/statusDot" android:layout_width="10dp" android:layout_height="10dp" />
+            <TextView android:id="@+id/statusText" style="@style/StatusTitle"
+                android:layout_width="wrap_content" android:layout_marginStart="10dp" />
+            <TextView android:id="@+id/statusSub" style="@style/StatusSub"
+                android:layout_width="0dp" android:layout_weight="1" android:layout_marginStart="10dp" />
+            <TextView android:id="@+id/liveBadge" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_marginStart="8dp" android:layout_marginEnd="4dp" android:fontFeatureSettings="tnum"
+                android:paddingStart="10dp" android:paddingTop="4dp" android:paddingEnd="10dp" android:paddingBottom="4dp"
+                android:textColor="#FFFFFF" android:textSize="12sp" android:textStyle="bold" android:visibility="gone" />
+            <LinearLayout android:id="@+id/pager" android:layout_width="wrap_content" android:layout_height="wrap_content" android:gravity="center_vertical">
+            <ImageButton android:id="@+id/prevBtn" style="@style/PageBtn" android:contentDescription="Página anterior" android:src="@drawable/ic_prev" />
+            <TextView android:id="@+id/pageLabel" style="@style/PageLabel" />
+            <ImageButton android:id="@+id/nextBtn" style="@style/PageBtn" android:contentDescription="Próxima página" android:src="@drawable/ic_next" />
+            </LinearLayout>
+            <LinearLayout android:id="@+id/mixerBtn" android:layout_width="wrap_content" android:layout_height="40dp"
+                android:layout_marginStart="6dp" android:clickable="true" android:focusable="true" android:contentDescription="Abrir mixer de áudio"
+                android:gravity="center_vertical" android:orientation="horizontal" android:paddingStart="12dp" android:paddingEnd="14dp">
+                <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_mixer"
+                    android:tint="@color/text" android:importantForAccessibility="no" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="8dp"
+                    android:text="Mixer" android:textColor="@color/text" android:textSize="14sp" android:textStyle="bold" />
+            </LinearLayout>
+            <ImageButton android:id="@+id/settingsBtn" style="@style/IconBtn" android:layout_marginStart="4dp"
+                android:contentDescription="Configurações de conexão" android:src="@drawable/ic_wifi" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/sceneGrid"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp" />
+
+        <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="6dp" android:layout_marginBottom="10dp">
+            <TextView android:id="@+id/audioEmpty" style="@style/Empty" android:layout_marginStart="16dp"
+                android:text="Nenhum áudio nesta cena." />
+            <ScrollView android:id="@+id/audioScroll" android:layout_width="match_parent"
+                android:layout_height="64dp" android:paddingStart="12dp" android:paddingEnd="12dp" android:scrollbars="none">
+                <LinearLayout android:id="@+id/audioBox" android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:orientation="vertical" />
+            </ScrollView>
+        </FrameLayout>
+    </LinearLayout>
+
+    <include layout="@layout/settings_overlay" />
+</FrameLayout>

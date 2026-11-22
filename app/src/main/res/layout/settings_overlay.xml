@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Tela de conexão (retrato). -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/settingsOverlay"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    android:clickable="true">
+
+    <ScrollView android:layout_width="match_parent" android:layout_height="match_parent" android:fillViewport="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="20dp"
+            android:paddingTop="40dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="24dp">
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp" android:orientation="vertical">
+                <FrameLayout android:layout_width="64dp" android:layout_height="64dp" android:background="@drawable/logo_bg">
+                    <ImageView android:layout_width="64dp" android:layout_height="64dp" android:scaleType="centerCrop"
+                        android:src="@drawable/ic_launcher_fg" android:importantForAccessibility="no" />
+                </FrameLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="OBS Controle"
+                    android:textColor="@color/text"
+                    android:textSize="28sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Cenas, áudio e gravação do OBS na palma da mão."
+                    android:textColor="@color/text_muted"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/settingsStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:paddingStart="12dp"
+                    android:paddingTop="6dp"
+                    android:paddingEnd="12dp"
+                    android:paddingBottom="6dp"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+            android:id="@+id/connectCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/card_bg"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <LinearLayout
+                android:id="@+id/scanQrBtn"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:orientation="horizontal">
+                <ImageView android:layout_width="26dp" android:layout_height="26dp"
+                    android:src="@drawable/ic_qr" android:tint="#FFFFFF" android:importantForAccessibility="no" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp" android:text="Ler QR Code do OBS"
+                    android:textColor="#FFFFFF" android:textSize="17sp" android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:layout_marginBottom="6dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <View android:layout_width="0dp" android:layout_height="1dp" android:layout_weight="1" android:background="#2C3038" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:paddingStart="12dp" android:paddingEnd="12dp" android:text="ou digite os dados"
+                    android:textColor="@color/text_muted" android:textSize="13sp" />
+                <View android:layout_width="0dp" android:layout_height="1dp" android:layout_weight="1" android:background="#2C3038" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:layout_weight="1" android:orientation="vertical">
+                    <TextView style="@style/Label" android:text="IP do computador" />
+                    <EditText android:id="@+id/hostInput" style="@style/Field"
+                        android:hint="192.168.0.10" android:imeOptions="flagNoExtractUi|actionNext" android:inputType="textUri" />
+                </LinearLayout>
+                <LinearLayout android:layout_width="108dp" android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp" android:orientation="vertical">
+                    <TextView style="@style/Label" android:text="Porta" />
+                    <EditText android:id="@+id/portInput" style="@style/Field"
+                        android:hint="4455" android:imeOptions="flagNoExtractUi|actionNext" android:inputType="number" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView style="@style/Label" android:text="Senha" />
+            <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+                <EditText android:id="@+id/passInput" style="@style/Field"
+                    android:paddingEnd="52dp" android:hint="deixe vazio se não usa senha"
+                    android:imeOptions="flagNoExtractUi|actionDone" android:inputType="textPassword" />
+                <ImageButton android:id="@+id/passToggle" android:layout_width="48dp" android:layout_height="48dp"
+                    android:layout_gravity="end|center_vertical" android:layout_marginEnd="2dp" android:background="@null"
+                    android:contentDescription="Mostrar senha" android:padding="12dp" android:scaleType="fitCenter"
+                    android:src="@drawable/ic_eye" android:tint="@color/text_muted" />
+            </FrameLayout>
+
+            <Button
+                android:id="@+id/connectBtn"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:layout_marginTop="16dp"
+                android:stateListAnimator="@null"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <CheckBox
+                android:id="@+id/keepOn"
+                android:layout_width="wrap_content"
+                android:layout_height="44dp"
+                android:layout_marginTop="6dp"
+                android:buttonTint="@color/accent"
+                android:text="Manter tela ligada"
+                android:textColor="@color/text"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/resetHiddenBtn"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginTop="4dp"
+                android:stateListAnimator="@null"
+                android:textAllCaps="false"
+                android:textColor="@color/text"
+                android:textSize="14sp"
+                android:visibility="gone" />
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/versionText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/text_muted"
+                    android:textSize="13sp" />
+                <Button
+                    android:id="@+id/updateBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="44dp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:stateListAnimator="@null"
+                    android:text="Verificar atualizações"
+                    android:textAllCaps="false"
+                    android:textColor="@color/text"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="12dp" android:orientation="vertical" android:paddingStart="4dp" android:paddingEnd="4dp">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp" android:orientation="horizontal">
+                    <TextView android:layout_width="26dp" android:layout_height="26dp" android:background="@drawable/num_bg"
+                        android:gravity="center" android:text="1" android:textColor="@color/accent" android:textSize="13sp" android:textStyle="bold" />
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+                        android:layout_marginStart="12dp" android:layout_marginTop="3dp" android:lineSpacingExtra="2dp"
+                        android:text="No OBS, abra Ferramentas → Configurações do servidor WebSocket e ative o servidor." android:textColor="@color/text" android:textSize="14sp" />
+                </LinearLayout>
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp" android:orientation="horizontal">
+                    <TextView android:layout_width="26dp" android:layout_height="26dp" android:background="@drawable/num_bg"
+                        android:gravity="center" android:text="2" android:textColor="@color/accent" android:textSize="13sp" android:textStyle="bold" />
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+                        android:layout_marginStart="12dp" android:layout_marginTop="3dp" android:lineSpacingExtra="2dp"
+                        android:text="Clique em “Mostrar informações de conexão” para ver o QR Code." android:textColor="@color/text" android:textSize="14sp" />
+                </LinearLayout>
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp" android:orientation="horizontal">
+                    <TextView android:layout_width="26dp" android:layout_height="26dp" android:background="@drawable/num_bg"
+                        android:gravity="center" android:text="3" android:textColor="@color/accent" android:textSize="13sp" android:textStyle="bold" />
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+                        android:layout_marginStart="12dp" android:layout_marginTop="3dp" android:lineSpacingExtra="2dp"
+                        android:text="Toque em “Ler QR Code do OBS” — o celular precisa estar no mesmo Wi-Fi do PC." android:textColor="@color/text" android:textSize="14sp" />
+                </LinearLayout>
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="18dp"
+                    android:lineSpacingExtra="2dp"
+                    android:text="Dicas: segure uma cena para trocar o ícone. Segure o nome de uma faixa de áudio para ocultá-la."
+                    android:textColor="@color/text_muted" android:textSize="12sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <ImageButton
+        android:id="@+id/closeSettings"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_gravity="top|end"
+        android:layout_margin="8dp"
+        android:background="@null"
+        android:contentDescription="Fechar"
+        android:src="@drawable/ic_close"
+        android:tint="@color/text_muted" />
+</FrameLayout>

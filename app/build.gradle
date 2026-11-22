@@ -1,0 +1,41 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'com.obscontroller'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.obscontroller"
+        minSdk 26          // Android 8.0+ (Galaxy M20 vem com 8.1 e atualiza até o 10)
+        targetSdk 34
+        // Para publicar uma atualização: aumente os dois números e crie a release vX.Y.Z no GitHub
+        // com o APK anexado (o app compara a tag com versionName).
+        versionCode Integer.parseInt((project.findProperty('vc') ?: '2').toString())
+        versionName((project.findProperty('vn') ?: '1.1.0').toString())
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            // Assinado com a chave de debug para instalar direto no celular (uso pessoal).
+            signingConfig signingConfigs.debug
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+dependencies {
+    implementation 'com.squareup.okhttp3:okhttp:4.12.0'
+    // Leitor de QR do Google Play Services: não precisa de permissão de câmera nem de tela própria.
+    implementation 'com.google.android.gms:play-services-code-scanner:16.1.0'
+    // FileProvider: entrega o APK baixado ao instalador do Android (auto-atualização).
+    implementation 'androidx.core:core:1.12.0'
+}
