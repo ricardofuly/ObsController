@@ -728,29 +728,44 @@ public class MainActivity extends Activity implements ObsClient.Listener {
         }
     }
 
-    /** Tecla do deck: ícone no topo, selo opcional à direita, nome embaixo. */
-    private LinearLayout makeKey(int iconRes, String emoji, String label) {
-        LinearLayout key = new LinearLayout(this);
-        key.setOrientation(LinearLayout.VERTICAL);
-        boolean land = isLandscape();
-        key.setPadding(dp(12), dp(land ? 7 : 10), dp(10), dp(land ? 7 : 10));
+    /** Tecla do deck: ícone grande no centro, nome centralizado embaixo, selo no canto superior direito. */
+    private ViewGroup makeKey(int iconRes, String emoji, String label) {
+        FrameLayout key = new FrameLayout(this);
         key.setClickable(true);
+        boolean land = isLandscape();
 
-        LinearLayout top = new LinearLayout(this);
-        top.setGravity(Gravity.CENTER_VERTICAL);
+        LinearLayout center = new LinearLayout(this);
+        center.setOrientation(LinearLayout.VERTICAL);
+        center.setGravity(Gravity.CENTER);
+        center.setPadding(dp(8), dp(8), dp(8), dp(8));
         if (emoji != null) {
             TextView e = new TextView(this);
             e.setText(emoji);
-            e.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+            e.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30);
             e.setIncludeFontPadding(false);
-            top.addView(e, new LinearLayout.LayoutParams(-2, dp(26)));
+            e.setGravity(Gravity.CENTER);
+            center.addView(e, new LinearLayout.LayoutParams(-2, -2));
         } else {
             ImageView icon = new ImageView(this);
             icon.setTag("icon");
             icon.setImageResource(iconRes);
-            top.addView(icon, new LinearLayout.LayoutParams(dp(24), dp(24)));
+            icon.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            center.addView(icon, new LinearLayout.LayoutParams(dp(38), dp(38)));
         }
-        top.addView(new View(this), new LinearLayout.LayoutParams(0, 1, 1f));
+        TextView name = new TextView(this);
+        name.setTag("name");
+        name.setText(label);
+        name.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+        name.setTypeface(Typeface.DEFAULT_BOLD);
+        name.setGravity(Gravity.CENTER);
+        name.setMaxLines(land ? 1 : 2);
+        name.setEllipsize(TextUtils.TruncateAt.END);
+        name.setIncludeFontPadding(false);
+        LinearLayout.LayoutParams nlp = new LinearLayout.LayoutParams(-1, -2);
+        nlp.topMargin = dp(8);
+        center.addView(name, nlp);
+        key.addView(center, new FrameLayout.LayoutParams(-1, -1, Gravity.CENTER));
+
         TextView pill = new TextView(this);
         pill.setTag("pill");
         pill.setTextColor(Color.WHITE);
@@ -764,20 +779,9 @@ public class MainActivity extends Activity implements ObsClient.Listener {
         pb.setColor(0x38FFFFFF);
         pill.setBackground(pb);
         pill.setVisibility(View.GONE);
-        top.addView(pill);
-        key.addView(top, new LinearLayout.LayoutParams(-1, -2));
-
-        key.addView(new View(this), new LinearLayout.LayoutParams(1, 0, 1f));
-
-        TextView name = new TextView(this);
-        name.setTag("name");
-        name.setText(label);
-        name.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
-        name.setTypeface(Typeface.DEFAULT_BOLD);
-        name.setMaxLines(land ? 1 : 2);
-        name.setEllipsize(TextUtils.TruncateAt.END);
-        name.setIncludeFontPadding(false);
-        key.addView(name, new LinearLayout.LayoutParams(-1, -2));
+        FrameLayout.LayoutParams plp = new FrameLayout.LayoutParams(-2, -2, Gravity.TOP | Gravity.END);
+        plp.setMargins(0, dp(8), dp(8), 0);
+        key.addView(pill, plp);
         return key;
     }
 
@@ -802,7 +806,7 @@ public class MainActivity extends Activity implements ObsClient.Listener {
         String[] emoji = SceneIcons.splitEmoji(sceneName);
         boolean useEmoji = emoji != null && prefs.getString("icon:" + sceneName, "").isEmpty();
         String label = emoji != null ? emoji[1] : sceneName;
-        LinearLayout key = makeKey(SceneIcons.resFor(iconKeyFor(sceneName)), useEmoji ? emoji[0] : null, label);
+        ViewGroup key = makeKey(SceneIcons.resFor(iconKeyFor(sceneName)), useEmoji ? emoji[0] : null, label);
         key.setContentDescription("Cena " + sceneName);
         key.setOnClickListener(v -> {
             if (!connected) {
@@ -844,7 +848,7 @@ public class MainActivity extends Activity implements ObsClient.Listener {
         ImageView icon = new ImageView(this);
         icon.setTag("icon");
         icon.setImageResource(iconRes);
-        key.addView(icon, new LinearLayout.LayoutParams(dp(24), dp(24)));
+        key.addView(icon, new LinearLayout.LayoutParams(dp(30), dp(30)));
         TextView name = new TextView(this);
         name.setTag("name");
         name.setGravity(Gravity.CENTER);
@@ -864,7 +868,7 @@ public class MainActivity extends Activity implements ObsClient.Listener {
     }
 
     private View makeFnKey(String fn, int iconRes) {
-        LinearLayout key = isLandscape() ? makeKey(iconRes, null, "") : makeCompactKey(iconRes);
+        ViewGroup key = isLandscape() ? makeKey(iconRes, null, "") : makeCompactKey(iconRes);
         key.setOnClickListener(v -> {
             v.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
             pressFn(fn);

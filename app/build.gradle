@@ -12,8 +12,8 @@ android {
         targetSdk 34
         // Para publicar uma atualização: aumente os dois números e crie a release vX.Y.Z no GitHub
         // com o APK anexado (o app compara a tag com versionName).
-        versionCode Integer.parseInt((project.findProperty('vc') ?: '2').toString())
-        versionName((project.findProperty('vn') ?: '1.1.0').toString())
+        versionCode Integer.parseInt((project.findProperty('vc') ?: '3').toString())
+        versionName((project.findProperty('vn') ?: '1.2.0').toString())
     }
 
     buildTypes {
